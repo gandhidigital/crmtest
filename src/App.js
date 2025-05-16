@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 const tiposProyecto = ['A', 'B', 'C', 'D', 'E', 'X'];
 const estatusProyecto = ['Contacto Inicial', 'Propuesta Entregada', 'Vendido', 'Entregado'];
+const API_URL = 'https://script.google.com/macros/s/AKfycbw94ZykqzVa-_8JJBkbw4oHFkXfjCtYPs_2rUvjG6IrszMwSIuxL1QvMbxBGI9i9Og7Ew/exec';
 
 function App() {
-  const [datos, setDatos] = useState([
-    {
-      cliente: 'Empresa Ejemplo',
-      tipo: 'A',
-      contacto: 'Juan Pérez',
-      estatus: 'Contacto Inicial',
-      entrega: '2025-06-01',
-    }
-  ]);
+  const [datos, setDatos] = useState([]);
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then(res => res.json())
+      .then(data => setDatos(data))
+      .catch(err => console.error('Error al cargar datos:', err));
+  }, []);
 
   const actualizarDato = (index, campo, valor) => {
     const nuevosDatos = [...datos];
@@ -37,6 +37,19 @@ function App() {
     setDatos(nuevosDatos);
   };
 
+  const guardarFila = (fila) => {
+    fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify(fila),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(() => alert('Fila guardada en Google Sheets'))
+      .catch(err => alert('Error al guardar fila: ' + err));
+  };
+
   return (
     <div style={{ padding: '2rem' }}>
       <h2>CRM de Proyectos</h2>
@@ -49,7 +62,7 @@ function App() {
             <th>Contacto Principal</th>
             <th>Estatus Actual</th>
             <th>Entrega de Proyecto</th>
-            <th>Eliminar</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -57,13 +70,13 @@ function App() {
             <tr key={index}>
               <td>
                 <input
-                  value={fila.cliente}
+                  value={fila.cliente || ''}
                   onChange={(e) => actualizarDato(index, 'cliente', e.target.value)}
                 />
               </td>
               <td>
                 <select
-                  value={fila.tipo}
+                  value={fila.tipo || 'A'}
                   onChange={(e) => actualizarDato(index, 'tipo', e.target.value)}
                 >
                   {tiposProyecto.map((op) => (
@@ -73,13 +86,13 @@ function App() {
               </td>
               <td>
                 <input
-                  value={fila.contacto}
+                  value={fila.contacto || ''}
                   onChange={(e) => actualizarDato(index, 'contacto', e.target.value)}
                 />
               </td>
               <td>
                 <select
-                  value={fila.estatus}
+                  value={fila.estatus || 'Contacto Inicial'}
                   onChange={(e) => actualizarDato(index, 'estatus', e.target.value)}
                 >
                   {estatusProyecto.map((op) => (
@@ -90,11 +103,17 @@ function App() {
               <td>
                 <input
                   type="date"
-                  value={fila.entrega}
+                  value={fila.entrega || ''}
                   onChange={(e) => actualizarDato(index, 'entrega', e.target.value)}
                 />
               </td>
               <td>
+                <button
+                  onClick={() => guardarFila(fila)}
+                  style={{ marginRight: '0.5rem' }}
+                >
+                  Guardar
+                </button>
                 <button
                   onClick={() => eliminarFila(index)}
                   style={{ backgroundColor: 'red', color: 'white', border: 'none', padding: '0.4rem 0.8rem', cursor: 'pointer' }}
