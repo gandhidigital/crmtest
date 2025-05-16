@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-const tiposProyecto = ['A', 'B', 'C', 'D', 'E', 'X'];
-const estatusProyecto = ['Contacto Inicial', 'Propuesta Entregada', 'Vendido', 'Entregado'];
-const plataformas = ['VTEX', 'Shopify', 'Duda', 'BigCommerce', 'B2C BC', 'B2B BC', 'B2C-B2B BC'];
+const tiposProyecto = ['Elegir', 'A', 'B', 'C', 'D', 'E', 'X'];
+const estatusProyecto = ['Lead', 'Contacto Inicial', 'Propuesta Entregada', 'Vendido', 'Entregado'];
+const plataformas = ['Sin Definir', 'VTEX', 'Shopify', 'Duda', 'BigCommerce', 'B2C BC', 'B2B BC', 'B2C-B2B BC'];
 
 function App() {
   const [datos, setDatos] = useState([]);
@@ -24,11 +24,11 @@ function App() {
   const agregarFila = () => {
     const nuevaFila = {
       cliente: '',
-      tipo: 'A',
+      tipo: 'Elegir',
       contacto: '',
-      estatus: 'Contacto Inicial',
+      estatus: 'Lead',
       entrega: '',
-      plataforma: 'VTEX',
+      plataforma: 'Sin Definir',
     };
     setDatos([...datos, nuevaFila]);
   };
@@ -89,7 +89,7 @@ function App() {
               <td>
                 <select
                   style={{ width: '100px' }}
-                  value={fila.tipo || 'A'}
+                  value={fila.tipo || 'Elegir'}
                   onChange={(e) => actualizarDato(index, 'tipo', e.target.value)}
                 >
                   {tiposProyecto.map((op) => (
@@ -107,7 +107,7 @@ function App() {
               <td>
                 <select
                   style={{ width: '160px' }}
-                  value={fila.estatus || 'Contacto Inicial'}
+                  value={fila.estatus || 'Lead'}
                   onChange={(e) => actualizarDato(index, 'estatus', e.target.value)}
                 >
                   {estatusProyecto.map((op) => (
@@ -126,7 +126,7 @@ function App() {
               <td>
                 <select
                   style={{ width: '160px' }}
-                  value={fila.plataforma || 'VTEX'}
+                  value={fila.plataforma || 'Sin Definir'}
                   onChange={(e) => actualizarDato(index, 'plataforma', e.target.value)}
                 >
                   {plataformas.map((op) => (
