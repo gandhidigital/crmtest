@@ -1,15 +1,16 @@
 export default async function handler(req, res) {
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Método no permitido' });
+  }
+
   try {
-    const response = await fetch('https://docs.google.com/spreadsheets/d/ID-DE-TU-HOJA/export?format=csv'); // ejemplo, si usas CSV
-    const data = await response.text(); // para CSV, si aplicara
+    const response = await fetch('https://script.google.com/macros/s/AKfycbxw5quM3_ULlKHSPss8HXTleF_WeiWD_i8PLjudbiADbbj5lRaGQSWBlvelEXbrdIOW/exec');
+    const data = await response.json();
 
-    // PERO para Apps Script, usualmente necesitas algo como:
-    const raw = await fetch('https://script.google.com/macros/s/TU_ID_SCRIPT/exec');
-    const datos = await raw.json();
-
-    const datosConIdTexto = datos.map(fila => ({
+    // Asegura que todos los registros tengan el ID como string
+    const datosConIdTexto = data.map(fila => ({
       ...fila,
-      id: String(fila.id ?? '') // fuerza a string o vacío
+      id: String(fila.id ?? '')
     }));
 
     return res.status(200).json(datosConIdTexto);
