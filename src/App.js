@@ -87,7 +87,12 @@ function App() {
       const original = originales[i];
       if (JSON.stringify(fila) !== JSON.stringify(original)) {
         const exito = await guardarFila(fila);
-        if (exito) cambios++;
+        if (exito) {
+          const nuevosOriginales = [...originales];
+          nuevosOriginales[i] = JSON.parse(JSON.stringify(fila));
+          setOriginales(nuevosOriginales);
+          cambios++;
+        }
       }
     }
     if (cambios === 0) {
@@ -177,10 +182,14 @@ function App() {
                     onClick={async () => {
                       const exito = await guardarFila(fila);
                       if (exito) {
+                        alert('Fila guardada exitosamente');
                         const nuevosOriginales = [...originales];
                         nuevosOriginales[index] = JSON.parse(JSON.stringify(fila));
                         setOriginales(nuevosOriginales);
-                        alert('Fila guardada exitosamente');
+                        console.log('Fila actualizada en originales:', nuevosOriginales[index]);
+                      } else {
+                        alert('No se pudo guardar la fila');
+                        console.error('Error al guardar fila:', fila);
                       }
                     }}
                     className="guardar"
