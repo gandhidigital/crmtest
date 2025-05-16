@@ -14,6 +14,7 @@ export default async function handler(req, res) {
 
     const text = await response.text();
 
+    // Intentar interpretar como JSON. Si no es posible, devolver como texto.
     try {
       const json = JSON.parse(text);
       return res.status(200).json(json);
