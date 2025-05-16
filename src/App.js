@@ -2,7 +2,17 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 const tiposProyecto = ['Elegir', 'A', 'B', 'C', 'D', 'E', 'X'];
-const estatusProyecto = ['Lead', 'Contacto Inicial', 'Propuesta Entregada', 'Vendido', 'Entregado'];
+const estatusProyecto = [
+  'Lead',
+  'Contacto Inicial',
+  'Propuesta Entregada',
+  'Vendido',
+  'Entregado',
+  'Detenido',
+  'Presentación',
+  'Propuesta',
+  'Firma de Contrato'
+];
 const plataformas = ['Sin Definir', 'VTEX', 'Shopify', 'Duda', 'BigCommerce', 'B2C BC', 'B2B BC', 'B2C-B2B BC'];
 
 function App() {
@@ -64,92 +74,94 @@ function App() {
     <div style={{ padding: '2rem' }}>
       <h2>CRM de Proyectos</h2>
       <button onClick={agregarFila} className="agregar">Agregar nueva fila</button>
-      <table border="1" cellPadding="8" cellSpacing="0">
-        <thead>
-          <tr>
-            <th>Cliente</th>
-            <th>Tipo de Proyecto</th>
-            <th>Contacto Principal</th>
-            <th>Estatus Actual</th>
-            <th>Entrega de Proyecto</th>
-            <th>Plataforma</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {datos.map((fila, index) => (
-            <tr key={index}>
-              <td>
-                <input
-                  value={fila.cliente || ''}
-                  onChange={(e) => actualizarDato(index, 'cliente', e.target.value)}
-                />
-              </td>
-              <td>
-                <select
-                  style={{ width: '100px' }}
-                  value={fila.tipo || 'Elegir'}
-                  onChange={(e) => actualizarDato(index, 'tipo', e.target.value)}
-                >
-                  {tiposProyecto.map((op) => (
-                    <option key={op} value={op}>{op}</option>
-                  ))}
-                </select>
-              </td>
-              <td>
-                <input
-                  value={fila.contacto || ''}
-                  onChange={(e) => actualizarDato(index, 'contacto', e.target.value)}
-                />
-              </td>
-              <td>
-                <select
-                  style={{ width: '160px' }}
-                  value={fila.estatus || 'Lead'}
-                  onChange={(e) => actualizarDato(index, 'estatus', e.target.value)}
-                >
-                  {estatusProyecto.map((op) => (
-                    <option key={op} value={op}>{op}</option>
-                  ))}
-                </select>
-              </td>
-              <td>
-                <input
-                  type="date"
-                  style={{ width: '130px' }}
-                  value={fila.entrega || ''}
-                  onChange={(e) => actualizarDato(index, 'entrega', e.target.value)}
-                />
-              </td>
-              <td>
-                <select
-                  style={{ width: '160px' }}
-                  value={fila.plataforma || 'Sin Definir'}
-                  onChange={(e) => actualizarDato(index, 'plataforma', e.target.value)}
-                >
-                  {plataformas.map((op) => (
-                    <option key={op} value={op}>{op}</option>
-                  ))}
-                </select>
-              </td>
-              <td>
-                <button
-                  onClick={() => guardarFila(fila)}
-                  className="guardar"
-                >
-                  Guardar
-                </button>
-                <button
-                  onClick={() => eliminarFila(index)}
-                  className="eliminar"
-                >
-                  Eliminar
-                </button>
-              </td>
+      <div style={{ overflowX: 'auto' }}>
+        <table border="1" cellPadding="8" cellSpacing="0">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Tipo de Proyecto</th>
+              <th>Contacto Principal</th>
+              <th>Estatus Actual</th>
+              <th>Entrega de Proyecto</th>
+              <th>Plataforma</th>
+              <th>Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {datos.map((fila, index) => (
+              <tr key={index}>
+                <td>
+                  <input
+                    value={fila.cliente || ''}
+                    onChange={(e) => actualizarDato(index, 'cliente', e.target.value)}
+                  />
+                </td>
+                <td>
+                  <select
+                    style={{ width: '100px' }}
+                    value={fila.tipo || 'Elegir'}
+                    onChange={(e) => actualizarDato(index, 'tipo', e.target.value)}
+                  >
+                    {tiposProyecto.map((op) => (
+                      <option key={op} value={op}>{op}</option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  <input
+                    value={fila.contacto || ''}
+                    onChange={(e) => actualizarDato(index, 'contacto', e.target.value)}
+                  />
+                </td>
+                <td>
+                  <select
+                    style={{ width: '160px' }}
+                    value={fila.estatus || 'Lead'}
+                    onChange={(e) => actualizarDato(index, 'estatus', e.target.value)}
+                  >
+                    {estatusProyecto.map((op) => (
+                      <option key={op} value={op}>{op}</option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  <input
+                    type="date"
+                    style={{ width: '130px' }}
+                    value={fila.entrega || ''}
+                    onChange={(e) => actualizarDato(index, 'entrega', e.target.value)}
+                  />
+                </td>
+                <td>
+                  <select
+                    style={{ width: '160px' }}
+                    value={fila.plataforma || 'Sin Definir'}
+                    onChange={(e) => actualizarDato(index, 'plataforma', e.target.value)}
+                  >
+                    {plataformas.map((op) => (
+                      <option key={op} value={op}>{op}</option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  <button
+                    onClick={() => guardarFila(fila)}
+                    className="guardar"
+                  >
+                    Guardar
+                  </button>
+                  <button
+                    onClick={() => eliminarFila(index)}
+                    className="eliminar"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
