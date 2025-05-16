@@ -120,7 +120,6 @@ function App() {
               <th>Entrega de Proyecto</th>
               <th>Plataforma</th>
               <th>Acciones</th>
-              <th>ID</th>
             </tr>
           </thead>
           <tbody>
@@ -204,7 +203,6 @@ function App() {
                     Eliminar
                   </button>
                 </td>
-                <td>{fila.id || ''}</td>
               </tr>
             ))}
           </tbody>
