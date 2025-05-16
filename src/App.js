@@ -61,7 +61,7 @@ function App() {
   return (
     <div style={{ padding: '2rem' }}>
       <h2>CRM de Proyectos</h2>
-      <button onClick={agregarFila} style={{ marginBottom: '1rem' }}>Agregar nueva fila</button>
+      <button onClick={agregarFila} className="agregar">Agregar nueva fila</button>
       <table border="1" cellPadding="8" cellSpacing="0">
         <thead>
           <tr>
@@ -118,13 +118,13 @@ function App() {
               <td>
                 <button
                   onClick={() => guardarFila(fila)}
-                  style={{ marginRight: '0.5rem' }}
+                  className="guardar"
                 >
                   Guardar
                 </button>
                 <button
                   onClick={() => eliminarFila(index)}
-                  style={{ backgroundColor: 'red', color: 'white', border: 'none', padding: '0.4rem 0.8rem', cursor: 'pointer' }}
+                  className="eliminar"
                 >
                   Eliminar
                 </button>
