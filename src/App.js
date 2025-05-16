@@ -37,17 +37,18 @@ function App() {
   };
 
   const guardarFila = (fila) => {
-    fetch('/api/guardar', {
-      method: 'POST',
-      body: JSON.stringify(fila),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(() => alert('Fila guardada en Google Sheets'))
-      .catch(err => alert('Error al guardar fila: ' + err));
-  };
+  fetch('/api/guardar', {
+    method: 'POST',
+    body: JSON.stringify(fila),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(res => res.json())
+    .then(() => alert('Fila guardada en Google Sheets'))
+    .catch(err => alert('Error al guardar fila: ' + err));
+};
+
 
   return (
     <div style={{ padding: '2rem' }}>
