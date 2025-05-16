@@ -58,7 +58,7 @@ function App() {
 
   const guardarFila = async (fila) => {
     try {
-      const res = await fetch('/api/guardar', {
+      const res = await fetch('https://script.google.com/macros/s/TU_ID_SCRIPT/exec', {
         method: 'POST',
         body: JSON.stringify(fila),
         headers: {
