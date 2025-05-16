@@ -21,9 +21,21 @@ function App() {
     setDatos(nuevosDatos);
   };
 
+  const agregarFila = () => {
+    const nuevaFila = {
+      cliente: '',
+      tipo: 'A',
+      contacto: '',
+      estatus: 'Contacto Inicial',
+      entrega: '',
+    };
+    setDatos([...datos, nuevaFila]);
+  };
+
   return (
     <div style={{ padding: '2rem' }}>
       <h2>CRM de Proyectos</h2>
+      <button onClick={agregarFila} style={{ marginBottom: '1rem' }}>Agregar nueva fila</button>
       <table border="1" cellPadding="8" cellSpacing="0">
         <thead>
           <tr>
