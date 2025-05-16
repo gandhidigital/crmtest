@@ -23,8 +23,9 @@ function App() {
     fetch('/api/datos')
       .then(res => res.json())
       .then(data => {
-        setDatos(data);
-        setOriginales(JSON.parse(JSON.stringify(data)));
+        const datosConIdTexto = data.map(fila => ({ ...fila, id: String(fila.id) }));
+        setDatos(datosConIdTexto);
+        setOriginales(JSON.parse(JSON.stringify(datosConIdTexto)));
       })
       .catch(err => console.error('Error al cargar datos:', err));
   }, []);
@@ -58,9 +59,10 @@ function App() {
 
   const guardarFila = async (fila) => {
     try {
+      const filaConIdTexto = { ...fila, id: String(fila.id) };
       const res = await fetch('/api/guardar', {
         method: 'POST',
-        body: JSON.stringify(fila),
+        body: JSON.stringify(filaConIdTexto),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -180,16 +182,15 @@ function App() {
                 <td>
                   <button
                     onClick={async () => {
+                      console.log("ID que se está enviando:", fila.id, typeof fila.id);
                       const exito = await guardarFila(fila);
                       if (exito) {
                         alert('Fila guardada exitosamente');
                         const nuevosOriginales = [...originales];
                         nuevosOriginales[index] = JSON.parse(JSON.stringify(fila));
                         setOriginales(nuevosOriginales);
-                        console.log('Fila actualizada en originales:', nuevosOriginales[index]);
                       } else {
                         alert('No se pudo guardar la fila');
-                        console.error('Error al guardar fila:', fila);
                       }
                     }}
                     className="guardar"
