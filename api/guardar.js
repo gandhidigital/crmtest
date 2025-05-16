@@ -4,32 +4,23 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch('await fetch('https://script.google.com/macros/s/AKfycb.../exec', {
-  method: 'POST',
-  body: JSON.stringify(fila),
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-', {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwD-c61VPKZhwoTzsIHhO0mSPzXMci3KAG1nMyd9FI9v4CLXlUYIZrURLzvGHRg7VXoUA/exec', {
       method: 'POST',
+      body: JSON.stringify(req.body),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(req.body),
     });
 
     const text = await response.text();
 
-    // Intentar interpretar como JSON. Si no es posible, devolver como texto.
-    try {
-      const json = JSON.parse(text);
-      return res.status(200).json(json);
-    } catch {
-      return res.status(200).json({ result: 'ok', raw: text });
+    if (response.ok) {
+      return res.status(200).json({ mensaje: 'Guardado correctamente', respuesta: text });
+    } else {
+      return res.status(response.status).json({ error: 'Falla desde Google Script', detalle: text });
     }
 
   } catch (err) {
-    return res.status(500).json({ error: 'Error en proxy: ' + err.message });
+    return res.status(500).json({ error: 'Error en el backend: ' + err.message });
   }
 }
