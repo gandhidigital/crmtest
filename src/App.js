@@ -3,6 +3,7 @@ import './App.css';
 
 const tiposProyecto = ['A', 'B', 'C', 'D', 'E', 'X'];
 const estatusProyecto = ['Contacto Inicial', 'Propuesta Entregada', 'Vendido', 'Entregado'];
+const plataformas = ['VTEX', 'Shopify', 'Duda', 'BigCommerce', 'B2C BC', 'B2B BC', 'B2C-B2B BC'];
 
 function App() {
   const [datos, setDatos] = useState([]);
@@ -27,6 +28,7 @@ function App() {
       contacto: '',
       estatus: 'Contacto Inicial',
       entrega: '',
+      plataforma: 'VTEX',
     };
     setDatos([...datos, nuevaFila]);
   };
@@ -70,6 +72,7 @@ function App() {
             <th>Contacto Principal</th>
             <th>Estatus Actual</th>
             <th>Entrega de Proyecto</th>
+            <th>Plataforma</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -119,6 +122,17 @@ function App() {
                   value={fila.entrega || ''}
                   onChange={(e) => actualizarDato(index, 'entrega', e.target.value)}
                 />
+              </td>
+              <td>
+                <select
+                  style={{ width: '160px' }}
+                  value={fila.plataforma || 'VTEX'}
+                  onChange={(e) => actualizarDato(index, 'plataforma', e.target.value)}
+                >
+                  {plataformas.map((op) => (
+                    <option key={op} value={op}>{op}</option>
+                  ))}
+                </select>
               </td>
               <td>
                 <button
