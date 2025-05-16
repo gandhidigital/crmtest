@@ -36,19 +36,27 @@ function App() {
     setDatos(nuevosDatos);
   };
 
-  const guardarFila = (fila) => {
-  fetch('/api/guardar', {
-    method: 'POST',
-    body: JSON.stringify(fila),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then(res => res.json())
-    .then(() => alert('Fila guardada en Google Sheets'))
-    .catch(err => alert('Error al guardar fila: ' + err));
-};
+  const guardarFila = async (fila) => {
+    try {
+      const res = await fetch('/api/guardar', {
+        method: 'POST',
+        body: JSON.stringify(fila),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
+      const text = await res.text();
+
+      if (res.ok) {
+        alert('Fila guardada en Google Sheets');
+      } else {
+        alert('Error al guardar fila: ' + text);
+      }
+    } catch (err) {
+      alert('Error de red al guardar fila: ' + err.message);
+    }
+  };
 
   return (
     <div style={{ padding: '2rem' }}>
