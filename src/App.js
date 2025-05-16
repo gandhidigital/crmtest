@@ -3,13 +3,12 @@ import './App.css';
 
 const tiposProyecto = ['A', 'B', 'C', 'D', 'E', 'X'];
 const estatusProyecto = ['Contacto Inicial', 'Propuesta Entregada', 'Vendido', 'Entregado'];
-const API_URL = 'https://script.google.com/macros/s/AKfycbw94ZykqzVa-_8JJBkbw4oHFkXfjCtYPs_2rUvjG6IrszMwSIuxL1QvMbxBGI9i9Og7Ew/exec';
 
 function App() {
   const [datos, setDatos] = useState([]);
 
   useEffect(() => {
-    fetch(API_URL)
+    fetch('/api/datos')
       .then(res => res.json())
       .then(data => setDatos(data))
       .catch(err => console.error('Error al cargar datos:', err));
@@ -38,7 +37,7 @@ function App() {
   };
 
   const guardarFila = (fila) => {
-    fetch(API_URL, {
+    fetch('/api/guardar', {
       method: 'POST',
       body: JSON.stringify(fila),
       headers: {
