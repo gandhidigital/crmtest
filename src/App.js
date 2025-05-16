@@ -39,6 +39,7 @@ function App() {
       estatus: 'Lead',
       entrega: '',
       plataforma: 'Sin Definir',
+      id: Date.now().toString(),
     };
     setDatos([...datos, nuevaFila]);
   };
@@ -70,10 +71,17 @@ function App() {
     }
   };
 
+  const guardarTodos = async () => {
+    for (const fila of datos) {
+      await guardarFila(fila);
+    }
+  };
+
   return (
     <div style={{ padding: '2rem' }}>
       <h2>CRM de Proyectos</h2>
       <button onClick={agregarFila} className="agregar">Agregar nueva fila</button>
+      <button onClick={guardarTodos} className="guardar">Guardar todos</button>
       <div style={{ overflowX: 'auto' }}>
         <table border="1" cellPadding="8" cellSpacing="0">
           <thead>
@@ -85,6 +93,7 @@ function App() {
               <th>Entrega de Proyecto</th>
               <th>Plataforma</th>
               <th>Acciones</th>
+              <th>ID</th>
             </tr>
           </thead>
           <tbody>
@@ -157,6 +166,7 @@ function App() {
                     Eliminar
                   </button>
                 </td>
+                <td>{fila.id || ''}</td>
               </tr>
             ))}
           </tbody>
