@@ -78,12 +78,14 @@ function App() {
             <tr key={index}>
               <td>
                 <input
+                  style={{ width: '150px' }}
                   value={fila.cliente || ''}
                   onChange={(e) => actualizarDato(index, 'cliente', e.target.value)}
                 />
               </td>
               <td>
                 <select
+                  style={{ width: '100px' }}
                   value={fila.tipo || 'A'}
                   onChange={(e) => actualizarDato(index, 'tipo', e.target.value)}
                 >
@@ -94,12 +96,14 @@ function App() {
               </td>
               <td>
                 <input
+                  style={{ width: '150px' }}
                   value={fila.contacto || ''}
                   onChange={(e) => actualizarDato(index, 'contacto', e.target.value)}
                 />
               </td>
               <td>
                 <select
+                  style={{ width: '160px' }}
                   value={fila.estatus || 'Contacto Inicial'}
                   onChange={(e) => actualizarDato(index, 'estatus', e.target.value)}
                 >
@@ -111,6 +115,7 @@ function App() {
               <td>
                 <input
                   type="date"
+                  style={{ width: '130px' }}
                   value={fila.entrega || ''}
                   onChange={(e) => actualizarDato(index, 'entrega', e.target.value)}
                 />
