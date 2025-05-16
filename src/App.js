@@ -81,7 +81,6 @@ function App() {
             <tr key={index}>
               <td>
                 <input
-                  style={{ width: '150px' }}
                   value={fila.cliente || ''}
                   onChange={(e) => actualizarDato(index, 'cliente', e.target.value)}
                 />
@@ -99,7 +98,6 @@ function App() {
               </td>
               <td>
                 <input
-                  style={{ width: '150px' }}
                   value={fila.contacto || ''}
                   onChange={(e) => actualizarDato(index, 'contacto', e.target.value)}
                 />
