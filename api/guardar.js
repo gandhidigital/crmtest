@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycby9HDSN1660trHgtyVTGjP2I7nRVmnILhLHZXIUnHJjzlWzUpXChJ7AOQftJV1cUiK5Dg/exec', {
+    const response = await fetch('https://script.google.com/macros/s/TU_SCRIPT_ID/exec', {
       method: 'POST',
       body: JSON.stringify(req.body),
       headers: {
@@ -21,6 +21,6 @@ export default async function handler(req, res) {
     }
 
   } catch (err) {
-    return res.status(500).json({ error: 'Error en el backend: ' + err.message });
+    return res.status(500).json({ error: 'Error en backend: ' + err.message });
   }
 }
