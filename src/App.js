@@ -32,6 +32,11 @@ function App() {
     setDatos([...datos, nuevaFila]);
   };
 
+  const eliminarFila = (index) => {
+    const nuevosDatos = datos.filter((_, i) => i !== index);
+    setDatos(nuevosDatos);
+  };
+
   return (
     <div style={{ padding: '2rem' }}>
       <h2>CRM de Proyectos</h2>
@@ -44,6 +49,7 @@ function App() {
             <th>Contacto Principal</th>
             <th>Estatus Actual</th>
             <th>Entrega de Proyecto</th>
+            <th>Eliminar</th>
           </tr>
         </thead>
         <tbody>
@@ -87,6 +93,14 @@ function App() {
                   value={fila.entrega}
                   onChange={(e) => actualizarDato(index, 'entrega', e.target.value)}
                 />
+              </td>
+              <td>
+                <button
+                  onClick={() => eliminarFila(index)}
+                  style={{ backgroundColor: 'red', color: 'white', border: 'none', padding: '0.4rem 0.8rem', cursor: 'pointer' }}
+                >
+                  Eliminar
+                </button>
               </td>
             </tr>
           ))}
